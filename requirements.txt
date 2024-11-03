@@ -1,0 +1,10 @@
+scipy
+numpy
+pandoc
+nltk
+apted
+Levenshtein
+lxml
+bs4
+pymupdf
+PIL
