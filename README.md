@@ -79,5 +79,10 @@ The overall process of the evaluation Suite is shown as the above.
 If you use our work and are inspired by our work, please consider cite us:
 
 ``` bibtex
-
+@article{li2024readoc,
+  title={READoc: A Unified Benchmark for Realistic Document Structured Extraction},
+  author={Li, Zichao and Abulaiti, Aizier and Lu, Yaojie and Chen, Xuanang and Zheng, Jia and Lin, Hongyu and Han, Xianpei and Sun, Le},
+  journal={arXiv preprint arXiv:2409.05137},
+  year={2024}
+}
 ```
