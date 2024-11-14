@@ -38,7 +38,7 @@ def e2e_evaluate(gold_dir, pred_dir, result_json):
         except:
             pred_md_content = ""
         
-        mmd_result = e2e_evaluate(gold_md_content, pred_md_content)
+        mmd_result = file_evaluate(gold_md_content, pred_md_content)
 
         for type in mmd_result:
             if type not in all_results.keys():
