@@ -1,5 +1,5 @@
 # 📖 READoc
-📄 [Paper](https://www.arxiv.org/abs/2409.05137) | 🤗 [Data](https://huggingface.co/datasets/lazyc/READoc) | *Current Version: v0.1*
+📄 [Paper](https://www.arxiv.org/abs/2409.05137) | 🤗 [Data](https://huggingface.co/datasets/lazyc/READoc) | *Current Version: v2.0*
 
 This repository contains the code to evaluate models or tools on READoc from the paper [READoc: A Unified Benchmark for Realistic Document Structured Extraction](https://arxiv.org/abs/2409.05137).
 
