@@ -6,8 +6,8 @@ from glob import glob
 import fire
 import json
 
-import nltk
-nltk.download('wordnet')
+# import nltk
+# nltk.download('wordnet')
 
 
 # def file_evaluate(gold_md, pred_md):
