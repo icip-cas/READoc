@@ -6,21 +6,45 @@ from glob import glob
 import fire
 import json
 
-def file_evaluate(gold_md, pred_md):
+import nltk
+nltk.download('wordnet')
+
+
+# def file_evaluate(gold_md, pred_md):
+#     gold_json_content = extract_materials(clean_md(gold_md))
+#     pred_json_content = extract_materials(clean_md(pred_md))
+
+#     overall_result = TextEvaluate(gold_json_content['overall'], pred_json_content['overall'])
+#     plain_result = TextEvaluate(gold_json_content['subtask']['plain'], pred_json_content['subtask']['plain'])
+#     math_result = MathEvaluate(gold_json_content['subtask']['math'], pred_json_content['subtask']['math'])
+#     head_result = HeadEvaluate(gold_json_content['subtask']['heads'], pred_json_content['subtask']['heads'])
+#     table_result = TableEvaluate(gold_json_content['subtask']['table'], pred_json_content['subtask']['table'])
+#     order_result = OrderEvaluate(gold_json_content['overall'], pred_json_content['overall'], gold_json_content['segments'], pred_json_content['segments'])
+
+#     return {'overall': overall_result, 'plain': plain_result, 'math': math_result, 'head': head_result, 'table': table_result, 'order': order_result}
+
+
+def file_evaluate(gold_md, pred_md, data_type):
     gold_json_content = extract_materials(clean_md(gold_md))
     pred_json_content = extract_materials(clean_md(pred_md))
 
     overall_result = TextEvaluate(gold_json_content['overall'], pred_json_content['overall'])
     plain_result = TextEvaluate(gold_json_content['subtask']['plain'], pred_json_content['subtask']['plain'])
-    math_result = MathEvaluate(gold_json_content['subtask']['math'], pred_json_content['subtask']['math'])
     head_result = HeadEvaluate(gold_json_content['subtask']['heads'], pred_json_content['subtask']['heads'])
-    table_result = TableEvaluate(gold_json_content['subtask']['table'], pred_json_content['subtask']['table'])
     order_result = OrderEvaluate(gold_json_content['overall'], pred_json_content['overall'], gold_json_content['segments'], pred_json_content['segments'])
 
-    return {'overall': overall_result, 'plain': plain_result, 'math': math_result, 'head': head_result, 'table': table_result, 'order': order_result}
+    if data_type == 'arxiv':
+        table_result = TableEvaluate(gold_json_content['subtask']['table'], pred_json_content['subtask']['table'])
+        math_result = MathEvaluate(gold_json_content['subtask']['math'], pred_json_content['subtask']['math'])
+        return {'overall': overall_result, 'plain': plain_result, 'math': math_result, 'head': head_result, 'table': table_result, 'order': order_result}
+    elif data_type == 'github':
+        return {'overall': overall_result, 'plain': plain_result, 'head': head_result, 'order': order_result}
+    else: # zenodo
+        table_result = TableEvaluate(gold_json_content['subtask']['table'], pred_json_content['subtask']['table'])
+        return {'overall': overall_result, 'plain': plain_result, 'head': head_result, 'table': table_result, 'order': order_result}
 
 
-def e2e_evaluate(gold_dir, pred_dir, result_json):
+def e2e_evaluate(gold_dir, pred_dir, data_type, result_json):
 
     all_results = dict()
     avg_results = dict()
@@ -38,7 +62,7 @@ def e2e_evaluate(gold_dir, pred_dir, result_json):
         except:
             pred_md_content = ""
         
-        mmd_result = file_evaluate(gold_md_content, pred_md_content)
+        mmd_result = file_evaluate(gold_md_content, pred_md_content, data_type)
 
         for type in mmd_result:
             if type not in all_results.keys():
@@ -58,32 +82,64 @@ def e2e_evaluate(gold_dir, pred_dir, result_json):
             for sub_sub_key in all_results[type][sub_key]:
                 avg_results[type][sub_key][sub_sub_key] = sum(all_results[type][sub_key][sub_sub_key]) / len(all_results[type][sub_key][sub_sub_key])
 
-    try: # arXiv
+
+    text_eds = avg_results['plain']['metrics']['edit_dist_sim']
+    text_f1 = avg_results['plain']['metrics']['f_measure']
+    head_eds = avg_results['head']['concated']['edit_dist_sim']
+    head_teds = avg_results['head']['logical']['teds']
+    seg_kt = avg_results['order']['segment']['kendall_tau']
+    word_kt = avg_results['order']['word']['kendall_tau']
+    seg_sp = avg_results['order']['segment']['spearmanr']
+    word_sp = avg_results['order']['word']['spearmanr']
+    print(avg_results)
+    print(gold_dir)
+    print(pred_dir)
+    print(data_type)
+    if data_type == 'arxiv':
+        inline_eds = avg_results['math']['inline_concated']['edit_dist_sim']
+        outline_eds = avg_results['math']['outline_concated']['edit_dist_sim']
+        table_eds = avg_results['table']['concated']['edit_dist_sim']
+        table_teds = avg_results['table']['mapped']['teds_min']
         result_dict = {
-            'text_eds': avg_results['plain']['metrics']['edit_dist_sim'],
-            'text_f1': avg_results['plain']['metrics']['f_measure'],
-            'head_eds': avg_results['head']['concated']['edit_dist_sim'],
-            'head_teds': avg_results['head']['logical']['teds'],
-            'inline_eds': avg_results['math']['inline_concated']['edit_dist_sim'],
-            'outline_eds': avg_results['math']['outline_concated']['edit_dist_sim'],
-            'table_eds': avg_results['table']['concated']['edit_dist_sim'],
-            'table_teds': avg_results['table']['mapped']['teds_min'],
-            'seg_kt': avg_results['order']['segment']['kendall_tau'],
-            'word_kt': avg_results['order']['word']['kendall_tau'],
-            'seg_sp': avg_results['order']['segment']['spearmanr'],
-            'word_sp': avg_results['order']['word']['spearmanr'],
+            'text_eds': text_eds,
+            'text_f1': text_f1,
+            'head_eds': head_eds,
+            'head_teds': head_teds,
+            'inline_eds': inline_eds,
+            'outline_eds': outline_eds,
+            'table_eds': table_eds,
+            'table_teds': table_teds,
+            'seg_kt': seg_kt,
+            'word_kt': word_kt,
+            'seg_sp': seg_sp,
+            'word_sp': word_sp,
             }
-    except: # GitHub
+    elif data_type == 'github':
         result_dict = {
-            'text_eds': avg_results['plain']['metrics']['edit_dist_sim'],
-            'text_f1': avg_results['plain']['metrics']['f_measure'],
-            'head_eds': avg_results['head']['concated']['edit_dist_sim'],
-            'head_teds': avg_results['head']['logical']['teds'],
-            'seg_kt': avg_results['order']['segment']['kendall_tau'],
-            'word_kt': avg_results['order']['word']['kendall_tau'],
-            'seg_sp': avg_results['order']['segment']['spearmanr'],
-            'word_sp': avg_results['order']['word']['spearmanr'],
-            }         
+            'text_eds': text_eds,
+            'text_f1': text_f1,
+            'head_eds': head_eds,
+            'head_teds': head_teds,
+            'seg_kt': seg_kt,
+            'word_kt': word_kt,
+            'seg_sp': seg_sp,
+            'word_sp': word_sp,
+            }
+    else:  # zenodo
+        table_eds = avg_results['table']['concated']['edit_dist_sim']
+        table_teds = avg_results['table']['mapped']['teds_min']
+        result_dict = {
+            'text_eds': text_eds,
+            'text_f1': text_f1,
+            'head_eds': head_eds,
+            'head_teds': head_teds,
+            'table_eds': table_eds,
+            'table_teds': table_teds,
+            'seg_kt': seg_kt,
+            'word_kt': word_kt,
+            'seg_sp': seg_sp,
+            'word_sp': word_sp,
+            }      
     
     with open(result_json, 'w') as f:
         json.dump(result_dict, f)
