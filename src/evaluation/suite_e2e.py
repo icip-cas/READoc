@@ -74,10 +74,6 @@ def e2e_evaluate(gold_dir, pred_dir, data_type, result_json):
     word_kt = avg_results['order']['word']['kendall_tau']
     seg_sp = avg_results['order']['segment']['spearmanr']
     word_sp = avg_results['order']['word']['spearmanr']
-    print(avg_results)
-    print(gold_dir)
-    print(pred_dir)
-    print(data_type)
     if data_type == 'arxiv':
         inline_eds = avg_results['math']['inline_concated']['edit_dist_sim']
         outline_eds = avg_results['math']['outline_concated']['edit_dist_sim']
