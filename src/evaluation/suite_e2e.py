@@ -6,23 +6,6 @@ from glob import glob
 import fire
 import json
 
-# import nltk
-# nltk.download('wordnet')
-
-
-# def file_evaluate(gold_md, pred_md):
-#     gold_json_content = extract_materials(clean_md(gold_md))
-#     pred_json_content = extract_materials(clean_md(pred_md))
-
-#     overall_result = TextEvaluate(gold_json_content['overall'], pred_json_content['overall'])
-#     plain_result = TextEvaluate(gold_json_content['subtask']['plain'], pred_json_content['subtask']['plain'])
-#     math_result = MathEvaluate(gold_json_content['subtask']['math'], pred_json_content['subtask']['math'])
-#     head_result = HeadEvaluate(gold_json_content['subtask']['heads'], pred_json_content['subtask']['heads'])
-#     table_result = TableEvaluate(gold_json_content['subtask']['table'], pred_json_content['subtask']['table'])
-#     order_result = OrderEvaluate(gold_json_content['overall'], pred_json_content['overall'], gold_json_content['segments'], pred_json_content['segments'])
-
-#     return {'overall': overall_result, 'plain': plain_result, 'math': math_result, 'head': head_result, 'table': table_result, 'order': order_result}
-
 
 def file_evaluate(gold_md, pred_md, data_type):
     gold_json_content = extract_materials(clean_md(gold_md))
