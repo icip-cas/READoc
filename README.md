@@ -1,11 +1,11 @@
 # 📖 READoc
-📄 [Paper](https://www.arxiv.org/abs/2409.05137) | 🤗 [Data](https://huggingface.co/datasets/lazyc/READoc) | 💻 [Codabench](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3) | *Current Version: v2.0.1*
+📄 [Paper](https://www.arxiv.org/abs/2409.05137) | 🤗 [Data](https://huggingface.co/datasets/lazyc/READoc) | 💻 [Codabench](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3) | *Current Version: v1.1*
 
 This repository contains the code to evaluate models or tools on READoc from the paper [READoc: A Unified Benchmark for Realistic Document Structured Extraction](https://arxiv.org/abs/2409.05137).
 
 ## 🔄 Update Log
 
-- 2025/10/10 2.0.1 released
+- 2025/10/10 v1.1 released
   - 🎉 Online Evaluation Platform Released 🔗 [Codabench](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3)
 
 ## 🌐 Online Evaluation Platform
@@ -51,6 +51,10 @@ Please note that this environment only includes the basic libraries for document
 * [nougat](https://github.com/facebookresearch/nougat)
 * [internvl-chat-v1-5](https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5)
 * [gpt-4o-mini](https://platform.openai.com/docs/models/gpt-4o-mini)
+* [mineru](https://github.com/opendatalab/MinerU)
+* [pix2text](https://github.com/breezedeus/Pix2Text)
+* [docling](https://github.com/docling-project/docling)
+* [got-ocr2.0](https://github.com/icip-cas/READoc/tree/readoc2.0)
 
 
 ### Data Preparation
