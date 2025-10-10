@@ -1,7 +1,22 @@
 # 📖 READoc
-📄 [Paper](https://www.arxiv.org/abs/2409.05137) | 🤗 [Data](https://huggingface.co/datasets/lazyc/READoc) | *Current Version: v2.0*
+📄 [Paper](https://www.arxiv.org/abs/2409.05137) | 🤗 [Data](https://huggingface.co/datasets/lazyc/READoc) | 💻 [Codabench](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3) | *Current Version: v2.0.1*
 
 This repository contains the code to evaluate models or tools on READoc from the paper [READoc: A Unified Benchmark for Realistic Document Structured Extraction](https://arxiv.org/abs/2409.05137).
+
+## 🔄 Update Log
+
+- 2025/10/10 2.0.1 released
+  - 🎉 Online Evaluation Platform Released 🔗 [Codabench](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3)
+
+## 🌐 Online Evaluation Platform
+
+We have now released the **READoc Online Evaluation Platform** on **Codabench**! 🎉  
+
+You can submit your **PDF-to-Markdown** results for automatic scoring and leaderboard ranking.
+
+👉 Access the platform here: [Codabench Evaluation Page](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3)
+
+Please refer to the competition page for detailed submission instructions and evaluation results.
 
 ## 📜 About
 
