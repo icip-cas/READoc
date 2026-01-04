@@ -5,6 +5,8 @@ This repository contains the code to evaluate models or tools on READoc from the
 
 ## 🔄 Update Log
 
+- 2025/12/31 Benchmark Ground Truth Released
+  - 📊 Official READoc evaluation ground truth has been released 🔗 [Hugging Face](https://huggingface.co/datasets/lazyc/READoc/tree/main)
 - 2025/10/10 v1.1 released
   - 🎉 Online Evaluation Platform Released 🔗 [Codabench](https://benchmark.icip.org.cn:443/competitions/49/?secret_key=b9412f28-b38a-4828-b275-20c3cab8d7d3)
 
